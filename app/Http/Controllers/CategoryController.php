@@ -14,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admincp.category.index');
+        $categories = Category::all();
+        return view('admincp.category.index', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -42,6 +45,7 @@ class CategoryController extends Controller
             ],
             [
                 'category_name.required' => 'Tên danh mục không được để trống.',
+                'category_name.unique' => 'Tên danh mục đã bị trùng.',
                 'description.required' => 'Mô tả không được để trống.',
             ]
         );
@@ -73,7 +77,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('admincp.category.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -85,7 +92,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate(
+            [
+                'category_name' => "required|unique:categories,category_name,{$id},id|max:255",
+                'description' => 'required|max:255',
+            ],
+            [
+                'category_name.required' => 'Tên danh mục không được để trống.',
+                'category_name.unique' => 'Tên danh mục đã bị trùng.',
+                'description.required' => 'Mô tả không được để trống.',
+            ]
+        );
+        $data = $request;
+        $category = Category::find($id);
+        $category->category_name = $data['category_name'];
+        $category->description = $data['description'];
+        $category->status = $data['status'];
+        $category->save();
+        return redirect()->back()->with('status', 'Đã sửa thành công!');
     }
 
     /**
@@ -96,6 +120,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->back()->with('status', 'Đã Xoá thành công!');
     }
 }
