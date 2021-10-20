@@ -30,8 +30,13 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên Danh Mục</label>
-                                <input type="text" class="form-control" name="category_name"
+                                <input type="text" class="form-control" id="slug" onkeyup="ChangeToSlug()" name="category_name"
                                     value="{{ old('category_name') ?? $category->category_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Slug Danh Mục</label>
+                                <input type="text" class="form-control" id="convert_slug" name="slug_category"
+                                    value="{{ old('slug_category') ?? $category->slug_category }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Mô Tả Danh Mục</label>
@@ -45,7 +50,7 @@
                                         <option selected value="0">Kích hoạt</option>
                                         <option value="1">Ẩn</option>
                                     @else
-                                        <option  value="0">Hiện</option>
+                                        <option value="0">Hiện</option>
                                         <option selected value="1">Không kích hoạt</option>
                                     @endif
                                 </select>

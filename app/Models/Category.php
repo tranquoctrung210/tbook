@@ -16,6 +16,6 @@ class Category extends Model
     public $timestamps = false; //Nếu có update at hoặc create ap thì true
 
     protected $fillable = [
-        'category_name', 'description', 'status'
+        'category_name', 'slug_category', 'description', 'status'
     ]; //Những cột cần lấp đầy
 }

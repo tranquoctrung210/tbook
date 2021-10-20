@@ -41,17 +41,21 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'category_name' => 'required|unique:categories|max:255',
+                'slug_category' => 'required|unique:categories|max:255',
                 'description' => 'required|max:255',
             ],
             [
                 'category_name.required' => 'Tên danh mục không được để trống.',
                 'category_name.unique' => 'Tên danh mục đã bị trùng.',
+                'slug_category.required' => 'Slug danh mục không được để trống.',
+                'slug_category.unique' => 'Slug danh mục đã bị trùng.',
                 'description.required' => 'Mô tả không được để trống.',
             ]
         );
         $data = $request;
         $category = new Category();
         $category->category_name = $data['category_name'];
+        $category->slug_category = $data['slug_category'];
         $category->description = $data['description'];
         $category->status = $data['status'];
         $category->save();
@@ -95,17 +99,21 @@ class CategoryController extends Controller
         $request->validate(
             [
                 'category_name' => "required|unique:categories,category_name,{$id},id|max:255",
+                'slug_category' => "required|unique:categories,slug_category,{$id},id|max:255",
                 'description' => 'required|max:255',
             ],
             [
                 'category_name.required' => 'Tên danh mục không được để trống.',
                 'category_name.unique' => 'Tên danh mục đã bị trùng.',
+                'slug_category.required' => 'Slug danh mục không được để trống.',
+                'slug_category.unique' => 'Slug danh mục đã bị trùng.',
                 'description.required' => 'Mô tả không được để trống.',
             ]
         );
         $data = $request;
         $category = Category::find($id);
         $category->category_name = $data['category_name'];
+        $category->slug_category = $data['slug_category'];
         $category->description = $data['description'];
         $category->status = $data['status'];
         $category->save();

@@ -21,6 +21,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Tên danh mục</th>
+                                    <th scope="col">Slug danh mục</th>
                                     <th scope="col">Mô tả</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Quản lý</th>
@@ -32,6 +33,7 @@
                                     <tr>
                                         <th scope="row">{{ $category->id }}</th>
                                         <td>{{ $category->category_name }}</td>
+                                        <td>{{ $category->slug_category }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>
                                             @if ($category->status == 0)
@@ -41,7 +43,8 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{ route('category.edit', ['category' => $category->id]) }}">
+                                            <a class="btn btn-primary"
+                                                href="{{ route('category.edit', ['category' => $category->id]) }}">
                                                 {{ __('Sửa') }}
                                             </a>
                                             <form action="{{ route('category.destroy', ['category' => $category->id]) }}"

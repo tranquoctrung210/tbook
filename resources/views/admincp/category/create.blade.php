@@ -30,11 +30,18 @@
                             @method('post')
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên Danh Mục</label>
-                                <input type="text" class="form-control" name="category_name" value="{{ old('category_name') }}">
+                                <input type="text" class="form-control" id="slug" onkeyup="ChangeToSlug()" name="category_name"
+                                    value="{{ old('category_name') }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Slug Danh Mục</label>
+                                <input type="text" class="form-control" id="convert_slug" name="slug_category"
+                                    value="{{ old('slug_category') }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Mô Tả Danh Mục</label>
-                                <input type="text" class="form-control" name="description" value="{{ old('description') }}">
+                                <input type="text" class="form-control" name="description"
+                                    value="{{ old('description') }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Trạng Thái Danh Mục</label>
