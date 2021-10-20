@@ -28,9 +28,16 @@
                         <a class="dropdown-item" href="{{ route('book.create') }}">Thêm Truyện</a>
                     </div>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li> --}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Chapter
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('chapter.index') }}">List Chapter</a>
+                        <a class="dropdown-item" href="{{ route('chapter.create') }}">Thêm Chapter</a>
+                    </div>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
