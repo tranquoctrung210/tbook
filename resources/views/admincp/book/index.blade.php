@@ -36,7 +36,7 @@
                                         <th scope="row">{{ $key + 1 }}</th>
                                         <td>{{ $book->book_name }}</td>
                                         <td><img src="{{ asset('uploads/books/imgs/' . $book->image) }}" width="120"
-                                                height="156" alt="$book->book_name" /></td>
+                                                height="156" alt="{{ $book->book_name }}" /></td>
                                         <td>{{ $book->slug_book }}</td>
                                         <td>{{ $book->description }}</td>
                                         <td>{{ $book->category->category_name }}</td>
