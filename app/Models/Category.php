@@ -18,4 +18,9 @@ class Category extends Model
     protected $fillable = [
         'category_name', 'slug_category', 'description', 'status'
     ]; //Những cột cần lấp đầy
+
+    public function books()
+    {
+        return $this->hasMany('App\Models\Book');
+    }
 }
