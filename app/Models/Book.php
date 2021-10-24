@@ -20,4 +20,9 @@ class Book extends Model
     {
         return $this->belongsTo('App\Models\Category', 'category_id');
     }
+
+    public function chapters()
+    {
+        return $this->hasMany('App\Models\Chapter');
+    }
 }

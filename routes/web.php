@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,24 @@ use App\Http\Controllers\ChapterController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [IndexController::class, 'home']);
+
+Route::get('/category/{slug}-{id}.html', [IndexController::class, 'category'])->where(
+    [
+        'slug' => '.+',
+        'id' => '[0-9]+',  //biểu thức chính quy
+    ]
+)->name('category_slug');
+
+Route::get('/book/{slug}-{id}.html', [IndexController::class, 'book'])->where(
+    [
+        'slug' => '.+',
+        'id' => '[0-9]+',  //biểu thức chính quy
+    ]
+)->name('book-detail');
+
+Route::get('/detail', function () {
+    return view('pages.book-detail');
 });
 
 Auth::routes();
