@@ -20,10 +20,10 @@
             </h4>
             <div class="col-md-5">
                 <div class="form-group">
-                    <select name="chapter" class="custom-select">
+                    <select name="chapter_selected" class="custom-select select-chapter">
                         @foreach ($allChapters as $chapter_loop)
                             <option {{ $chapter_loop->id == $chapter->id ? 'selected' : '' }}
-                                value="{{ $chapter_loop->id }}">{{ $chapter_loop->chapter_title }}
+                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">{{ $chapter_loop->chapter_title }}
                                 {{ $chapter_loop->description ? ': ' . $chapter_loop->description : '' }}</option>
                         @endforeach
                     </select>
@@ -31,6 +31,17 @@
             </div>
             <div class="chapter_content">
                 {!! $chapter->content !!}
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <select name="chapter_selected" class="custom-select select-chapter">
+                        @foreach ($allChapters as $chapter_loop)
+                            <option {{ $chapter_loop->id == $chapter->id ? 'selected' : '' }}
+                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">{{ $chapter_loop->chapter_title }}
+                                {{ $chapter_loop->description ? ': ' . $chapter_loop->description : '' }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
     </div>

@@ -114,6 +114,16 @@
             }
         })
     </script>
+    <script type="text/javascript">
+        $('.select-chapter').on('change', function() {
+            var url = $(this).val();
+            if (url) {
+                window.location = url
+            } else {
+                return false;
+            }
+        })
+    </script>
 </body>
 
 </html>
