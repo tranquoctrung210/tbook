@@ -69,6 +69,7 @@ class BookController extends Controller
         $book->slug_book = $data['slug_book'];
         $book->description = $data['description'];
         $book->category_id = $data['category_id'];
+        $data['author'] ? $book->author = $data['author'] : $book->author = 'Updating';
         $book->status = $data['status'];
         $book->image = $new_image;
         $book->save();
@@ -134,6 +135,7 @@ class BookController extends Controller
         $book->book_name = $data['book_name'];
         $book->slug_book = $data['slug_book'];
         $book->description = $data['description'];
+        $data['author'] ? $book->author = $data['author'] : $book->author = 'Updating';
         $book->category_id = $data['category_id'];
         $book->status = $data['status'];
 

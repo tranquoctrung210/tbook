@@ -20,6 +20,7 @@ class CreateChaptersTables extends Migration
             $table->string('slug_chapter', 255);
             $table->string('description')->nullable();
             $table->text('content');
+            $table->integer('view')->default(0);
             $table->integer('status');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

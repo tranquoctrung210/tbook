@@ -21,7 +21,7 @@
                 @foreach ($books as $index => $book)
                     <div class="col-md-3">
                         <div class="card mb-3 box-shadow">
-                            <a href="{{ route('book-detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">
+                            <a href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">
                                 <img class="card-img-top" src="{{ asset('uploads/books/imgs/' . $book->image) }}"
                                     height="235.91px" width="151.66px">
                             </a>
@@ -32,11 +32,11 @@
                                 <p class="card-text">
                                 <ul class="list-group" style="list-style:none">
                                     @if (!empty($book->chapters->all()))
-                                        @for ($i = 0; $i < 3; $i++)
+                                        @for ($i = 0; $i < count($book->chapters->all()); $i++)
                                             <li class="d-flex justify-content-between">
                                                 <small>
                                                     <a
-                                                        href="{{ route('book-detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">
+                                                        href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">
                                                         {{ $book->chapters->all()[$i]->chapter_title }}
                                                     </a>
                                                 </small>

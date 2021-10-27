@@ -32,7 +32,15 @@ Route::get('/book/{slug}-{id}.html', [IndexController::class, 'book'])->where(
         'slug' => '.+',
         'id' => '[0-9]+',  //biểu thức chính quy
     ]
-)->name('book-detail');
+)->name('book_detail');
+
+Route::get('/book/{slug}/{slug_chapter}/{id_chapter}.html', [IndexController::class, 'chapter'])->where(
+    [
+        'slug' => '.+',
+        'slug_chapter' => '.+',
+        'id_chapter' => '[0-9]+',  //biểu thức chính quy
+    ]
+)->name('chapter_detail');
 
 Route::get('/detail', function () {
     return view('pages.book-detail');

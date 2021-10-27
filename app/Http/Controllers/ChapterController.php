@@ -40,8 +40,8 @@ class ChapterController extends Controller
     {
         $request->validate(
             [
-                'chapter_title' => "required|unique:chapters|max:255",
-                'slug_chapter' => "required|unique:chapters|max:255",
+                'chapter_title' => "required|max:255",
+                'slug_chapter' => "required|max:255",
                 'status' => 'required',
                 'content' => 'required'
             ],
@@ -104,8 +104,8 @@ class ChapterController extends Controller
     {
         $request->validate(
             [
-                'chapter_title' => "required|unique:chapters,chapter_title,{$id},id|max:255",
-                'slug_chapter' => "required|unique:chapters,slug_chapter,{$id},id|max:255",
+                'chapter_title' => "required|max:255",
+                'slug_chapter' => "required|max:255",
                 'status' => 'required',
                 'content' => 'required'
             ],

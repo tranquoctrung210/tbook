@@ -45,6 +45,10 @@
                                     rows="10">{{ old('description') ?? $book->description }}</textarea>
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Tác giả</label>
+                                <input type="text" class="form-control" name="author" value="{{ old('author') ?? $book->author }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Danh mục truyện</label>
                                 <select name="category_id" class="custom-select">
                                     @foreach ($categories as $category)

@@ -21,6 +21,8 @@ class CreateBooksTable extends Migration
             $table->string('image', 255);
             $table->foreignId('category_id')->constrained('categories');
             $table->integer('status');
+            $table->string('author')->nullable();
+            $table->integer('view')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

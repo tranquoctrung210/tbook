@@ -16,6 +16,11 @@ class Book extends Model
         'book_name', 'slug_book', 'description', 'status', 'category_id', 'image',
     ]; //Những cột cần lấp đầy
 
+    protected $attributes = [
+        'author' => 'Updating',
+        'view' => 0
+    ]; 
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category', 'category_id');

@@ -19,6 +19,7 @@ class Chapter extends Model
 
     protected $attributes = [
         'description' => 'Tóm tắt sẽ được cập nhật sau.',
+        'view' => 0,
     ];
 
     public function book()
