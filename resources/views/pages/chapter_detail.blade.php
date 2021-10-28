@@ -7,9 +7,14 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Library</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Data</li>
+            <li class="breadcrumb-item"><a href="{{ route('home_page') }}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('category_slug', ['slug' => $book->category->slug_category, 'id' => $book->category->id]) }}">{{ $book->category->category_name }}</a>
+            </li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">{{ $book->book_name }}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $chapter->chapter_title }}</li>
         </ol>
     </nav>
     <div class="row">

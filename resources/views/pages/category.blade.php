@@ -5,6 +5,14 @@
 @endsection --}}
 
 @section('content')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home_page') }}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('category_slug', ['slug' => $category->slug_category, 'id' => $category->id]) }}">{{ $category->category_name }}</a>
+            </li>
+        </ol>
+    </nav>
     <div class="row">
         <div class="col-8">
             <h3>{{ $category->category_name }}</h3>

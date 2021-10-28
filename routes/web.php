@@ -18,7 +18,7 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/', [IndexController::class, 'home']);
+Route::get('/', [IndexController::class, 'home'])->name('home_page');
 
 Route::get('/category/{slug}-{id}.html', [IndexController::class, 'category'])->where(
     [
