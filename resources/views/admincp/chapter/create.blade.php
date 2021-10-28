@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Nội dung</label>
-                                <textarea name="content" class="form-control" cols="30"
+                                <textarea name="content" id="chapter-content" class="form-control" cols="30"
                                     rows="5">{{ old('content') }}</textarea>
                             </div>
                             <div class="form-group">

@@ -41,11 +41,15 @@ class IndexController extends Controller
     {
         $chapter = Chapter::find($id);
         $allChapters = Chapter::where('book_id', $chapter->book_id)->orderBy('id', 'desc')->get()->all();
-        // dd($allChapters);
+        $nextChapter = Chapter::where('book_id', $chapter->book_id)->where('id', '>', $chapter->id)->orderBy('id', 'asc')->first();
+        $previousChapter = Chapter::where('book_id', $chapter->book_id)->where('id', '<', $chapter->id)->orderBy('id', 'desc')->first();
+        // dd($nextChapter->slug_chapter);
         return view('pages.chapter_detail', [
             'chapter' => $chapter,
             'book' => $chapter->book,
             'allChapters' => $allChapters,
+            'previousChapter' => $previousChapter,
+            'nextChapter' => $nextChapter
         ]);
     }
 }

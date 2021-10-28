@@ -18,29 +18,72 @@
                 <a href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">{{ $book->book_name }}
                 </a> - {{ $chapter->chapter_title }} {{ $chapter->description ? ': ' . $chapter->description : '' }}
             </h4>
-            <div class="col-md-5">
-                <div class="form-group">
-                    <select name="chapter_selected" class="custom-select select-chapter">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="btn-group">
+                    @if (end($allChapters)->id == $chapter->id)
+                        <a href="#" type="button" class="btn btn-primary disabled mr-2">
+                            Trước
+                        </a>
+                    @else
+                        <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $previousChapter->slug_chapter, 'id_chapter' => $previousChapter->id]) }}"
+                            type="button" class="btn btn-primary mr-2">
+                            Trước
+                        </a>
+                    @endif
+                    <select name="chapter_selected" class="custom-select select-chapter mr-2">
                         @foreach ($allChapters as $chapter_loop)
                             <option {{ $chapter_loop->id == $chapter->id ? 'selected' : '' }}
-                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">{{ $chapter_loop->chapter_title }}
+                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">
+                                {{ $chapter_loop->chapter_title }}
                                 {{ $chapter_loop->description ? ': ' . $chapter_loop->description : '' }}</option>
                         @endforeach
                     </select>
+                    @if ($allChapters[0]->id == $chapter->id)
+                        <a href="#" type="button" class="btn btn-primary disabled mr-2">
+                            Sau
+                        </a>
+                    @else
+                        <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $nextChapter->slug_chapter, 'id_chapter' => $nextChapter->id]) }}"
+                            type="button" class="btn btn-primary mr-2">
+                            Sau
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="chapter_content">
                 {!! $chapter->content !!}
             </div>
-            <div class="col-md-5">
-                <div class="form-group">
-                    <select name="chapter_selected" class="custom-select select-chapter">
+
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="btn-group">
+                    @if (end($allChapters)->id == $chapter->id)
+                        <a href="#" type="button" class="btn btn-primary disabled mr-2">
+                            Trước
+                        </a>
+                    @else
+                        <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $previousChapter->slug_chapter, 'id_chapter' => $previousChapter->id]) }}"
+                            type="button" class="btn btn-primary mr-2">
+                            Trước
+                        </a>
+                    @endif
+                    <select name="chapter_selected" class="custom-select select-chapter mr-2">
                         @foreach ($allChapters as $chapter_loop)
                             <option {{ $chapter_loop->id == $chapter->id ? 'selected' : '' }}
-                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">{{ $chapter_loop->chapter_title }}
+                                value="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapter_loop->slug_chapter, 'id_chapter' => $chapter_loop->id]) }}">
+                                {{ $chapter_loop->chapter_title }}
                                 {{ $chapter_loop->description ? ': ' . $chapter_loop->description : '' }}</option>
                         @endforeach
                     </select>
+                    @if ($allChapters[0]->id == $chapter->id)
+                        <a href="#" type="button" class="btn btn-primary disabled mr-2">
+                            Sau
+                        </a>
+                    @else
+                        <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $nextChapter->slug_chapter, 'id_chapter' => $nextChapter->id]) }}"
+                            type="button" class="btn btn-primary mr-2">
+                            Sau
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -56,7 +99,8 @@
                     <div class="card mb-3 box-shadow">
                         <a
                             href="{{ route('book_detail', ['slug' => $bookOfCategory->slug_book, 'id' => $bookOfCategory->id]) }}">
-                            <img class="card-img-top" src="{{ asset('uploads/books/imgs/' . $bookOfCategory->image) }}">
+                            <img class="card-img-top"
+                                src="{{ asset('uploads/books/imgs/' . $bookOfCategory->image) }}">
                         </a>
                         <div class="card-body">
                             <h5>{{ $bookOfCategory->book_name }}</h5>
