@@ -58,10 +58,48 @@
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    <div class="search-container">
+                        <form class="form-inline my-2 my-lg-0" method="GET" action="{{ route('search_book_get') }}">
+                            <input class="form-control mr-sm-2" style="width:400px" type="search" id="search"
+                                name="keyword" placeholder="Search" aria-label="Search" required autocomplete="off">
+                            <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                        <style>
+                            .list-book-result {
+                                width: 400px;
+                                position: absolute;
+                                z-index: 5;
+                                background-color: #97c0e2;
+                                max-height: 500px;
+                                display: none;
+                            }
+
+                            .item-book-result {
+                                padding: 10px 5px 10px 5px;
+                            }
+
+                            .item-book-result:not(:last-of-type) {
+                                border-bottom: 1px solid
+                            }
+
+                            a.book-link:hover,
+                            a.book-link li.item-book-result:hover {
+                                background-color: gray;
+                                text-decoration: none;
+                            }
+
+                            /* a.book-link .item-book-result  {
+                                color: inherit;
+                                display: contents;
+                            } */
+
+                        </style>
+                        <ul class="list-unstyled overflow-auto list-book-result">
+                            <li class="media item-book-result">
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </nav>
             <div class="col" style="background-color:black"></div>
@@ -91,7 +129,6 @@
             </div>
         </footer>
     </div>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
@@ -123,6 +160,38 @@
                 return false;
             }
         })
+    </script>
+    <script type="text/javascript">
+        $('#search').on('keyup', function() {
+            var value = $(this).val();
+            if (value != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('search_book_ajax') }}',
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        'keyword_ajax': value,
+                    },
+                    success: function(data) {
+                        $('.list-book-result').html(data);
+                        $(".list-book-result").fadeIn('fast');
+                    }
+                });
+            } else {
+                $(".list-book-result").fadeOut();
+            }
+
+        })
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+        $('#search').focusout(function() {
+            setTimeout(() => {
+                $(".list-book-result").hide();
+            }, 100);
+        });
     </script>
 </body>
 

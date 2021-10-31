@@ -23,6 +23,7 @@
                 <a href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">{{ $book->book_name }}
                 </a> - {{ $chapter->chapter_title }} {{ $chapter->description ? ': ' . $chapter->description : '' }}
             </h4>
+            {{-- ----------- chapter selecter -------------- --}}
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="btn-group">
                     @if (end($allChapters)->id == $chapter->id)
@@ -55,10 +56,13 @@
                     @endif
                 </div>
             </div>
+            {{-- ----------- end chapter selecter --------------}}
+            <hr>
             <div class="chapter_content">
                 {!! $chapter->content !!}
             </div>
-
+            <hr>
+            {{-- ----------- chapter selecter -------------- --}}
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="btn-group">
                     @if (end($allChapters)->id == $chapter->id)
@@ -91,6 +95,7 @@
                     @endif
                 </div>
             </div>
+            {{-- ----------- end chapter selecter -------------- --}}
         </div>
     </div>
     <div class="row">

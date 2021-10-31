@@ -29,7 +29,7 @@ class IndexController extends Controller
     public function book($slug, $id)
     {
         $book = Book::find($id);
-        $chapters = Chapter::where('book_id', $book->id)->orderBy('id', 'desc')->get()->all();
+        $chapters = Chapter::where('status', 0)->where('book_id', $book->id)->orderBy('id', 'desc')->get()->all();
         return view('pages.book_detail', [
             'book' => $book,
             'chapters' => $chapters
@@ -51,5 +51,49 @@ class IndexController extends Controller
             'previousChapter' => $previousChapter,
             'nextChapter' => $nextChapter
         ]);
+    }
+
+    public function search_ajax(Request $request)
+    {
+        if ($request->ajax()) {
+            $books = Book::where('status', 0)->where('book_name', 'LIKE', "%{$request->keyword_ajax}%")->get();
+
+            if (!empty($books)) {
+                $output = '';
+                foreach ($books as $key => $book) {
+                    $countChapter = $book->chapters->count();
+                    $output .= '
+                    <a class="book-link" href="' . route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) . '">
+                        <li class="media item-book-result">
+                            <img class="mr-2" width="100px" height="100%"
+                                src="' . asset("uploads/books/imgs/" . $book->image) . '"
+                                alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1"><strong>' . $book->book_name . '</strong></h5>
+                                <p>Tổng cộng có :' . $countChapter  . ' chương</p>
+                            </div>
+                        </li>
+                    </a>
+               ';
+                }
+                return Response($output);
+            } else {
+                return Response('<li class="media item-book-result"><li>');
+            }
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword', null);
+        if ($keyword) {
+            $books = Book::where('status', 0)->where('book_name', 'LIKE', "%" . $keyword . "%")->orWhere('author',  'LIKE', "%" . $keyword . "%")->get();
+            return view('pages.search', [
+                'books' => $books,
+                'keyword' => $keyword,
+            ]);
+        } else {
+            return redirect()->route('home_page');
+        }
     }
 }

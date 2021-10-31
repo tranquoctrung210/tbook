@@ -46,6 +46,10 @@ Route::get('/detail', function () {
     return view('pages.book-detail');
 });
 
+//Search Book
+Route::get('search', [IndexController::class, 'search'])->name('search_book_get');
+Route::post('search_ajax', [IndexController::class, 'search_ajax'])->name('search_book_ajax');
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
