@@ -56,7 +56,7 @@
                     @endif
                 </div>
             </div>
-            {{-- ----------- end chapter selecter --------------}}
+            {{-- ----------- end chapter selecter ------------ --}}
             <hr>
             <div class="chapter_content">
                 {!! $chapter->content !!}
@@ -126,7 +126,7 @@
                                                 </a>
                                             </small>
                                             <small>
-                                                5 phut truoc
+                                                {{ $bookOfCategory->chapters->all()[$i]->updated_at->diffForHumans() }}
                                             </small>
                                         </li>
                                     @endfor

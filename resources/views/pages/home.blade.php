@@ -41,7 +41,7 @@
                                                     </a>
                                                 </small>
                                                 <small>
-                                                    5 phut truoc
+                                                    {{ $book->chapters->all()[$i]->updated_at->diffForHumans() }}
                                                 </small>
                                             </li>
                                         @endfor
@@ -67,20 +67,17 @@
         </div>
 
         <div class="col-4">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-              </ul>
+            <div class="card bg-light mb-3">
+                <div class="card-header">
+                    <h5 class="mt-0 mb-0">Truyện đang theo dõi</h5>
+                </div>
+                <ul class="list-group" id="follow-list" style="list-style:none">
+                </ul>
+
+
+            </div>
+
+            @include('includes.tabbox_topview')
         </div>
     </div>
 

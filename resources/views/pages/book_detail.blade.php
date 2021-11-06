@@ -7,18 +7,25 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home_page')}}">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category_slug', ['slug' => $book->category->slug_category, 'id' => $book->category->id]) }}">{{ $book->category->category_name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home_page') }}">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{ route('category_slug', ['slug' => $book->category->slug_category, 'id' => $book->category->id]) }}">{{ $book->category->category_name }}</a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">{{ $book->book_name }}</li>
         </ol>
     </nav>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-md-3">
-                    <img width="250px" src="{{ asset('uploads/books/imgs/' . $book->image) }}">
+                    <img width="250px" class="book_image_url" src="{{ asset('uploads/books/imgs/' . $book->image) }}">
                 </div>
                 <div class="col-md-9">
+                    {{-- Lấy info truyện cho js --}}
+                    <input type="hidden" class="book_followed_name" value="{{ $book->book_name }}">
+                    <input type="hidden" class="book_followed_url" value="{{ URL::current() }}">
+                    <input type="hidden" class="book_followed_id" value="{{ $book->id }}">
+                    {{-- end Lấy info truyện cho js --}}
                     <ul style="list-style:none; margin-left: 50px">
                         <li>
                             <h3>{{ $book->book_name }}</h3>
@@ -36,16 +43,22 @@
                             <p>Lượt xem : </p>
                         </li>
                         <li>
-                            <a href="#" class="btn btn-success">Theo dõi</a>
+                            <button class="btn btn-success btn-follow-book"><i class="fas fa-heart"></i> Theo dõi</button>
                         </li>
-                        <li style="margin-top: 10px">
+                        <li style="margin: 10px 0px">
                             @if (empty($chapters))
                                 <a href="#" class="btn btn-primary disabled">Updating</a>
                             @else
-                                <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => end($chapters)->slug_chapter, 'id_chapter' => end($chapters)->id]) }}" class="btn btn-primary">Đọc từ đầu</a>
+                                <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => end($chapters)->slug_chapter, 'id_chapter' => end($chapters)->id]) }}"
+                                    class="btn btn-primary">Đọc từ đầu</a>
                                 <a href="#" class="btn btn-primary">Đọc tiếp</a>
-                                <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapters[0]->slug_chapter, 'id_chapter' => $chapters[0]->id]) }}" class="btn btn-primary">Đọc mới nhất</a>
+                                <a href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $chapters[0]->slug_chapter, 'id_chapter' => $chapters[0]->id]) }}"
+                                    class="btn btn-primary">Đọc mới nhất</a>
                             @endif
+                        </li>
+                        <li>
+                            <div class="fb-like" data-href="{{ URL::current() }}" data-width=""
+                                data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +87,7 @@
                                                 {{ $chapter->chapter_title }}
                                             </a>
                                         </td>
-                                        <td>{{ $chapter->updated_at }}</td>
+                                        <td>{{ $chapter->updated_at->diffForHumans() }}</td>
                                         <td>{{ $chapter->view }}</td>
                                     </tr>
                                 @endforeach
@@ -85,12 +98,22 @@
                     @endif
                     <hr>
                     <h3>Bình luận</h3>
+                    <div class="fb-comments" data-href="{{ URL::current() }}" data-width="100%" data-order-by="time"
+                        data-numposts="5">
+                    </div>
                 </div>
             </div>
 
         </div>
-        <div class="col-md-3">
-            alo 2
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header">
+                    <h5 class="mt-0 mb-0">Truyện đang theo dõi</h5>
+                </div>
+                <ul class="list-group" id="follow-list" style="list-style:none">
+                </ul>
+            </div>
+           
         </div>
     </div>
     <div class="row">
@@ -121,7 +144,7 @@
                                                 </a>
                                             </small>
                                             <small>
-                                                5 phut truoc
+                                                {{ $bookOfCategory->chapters->all()[$i]->updated_at->diffForHumans() }}
                                             </small>
                                         </li>
                                     @endfor

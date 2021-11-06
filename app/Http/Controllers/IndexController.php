@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Book;
 use App\Models\Chapter;
 
+use Carbon\Carbon;
+
 class IndexController extends Controller
 {
     public function home()
@@ -70,7 +72,7 @@ class IndexController extends Controller
                                 alt="Generic placeholder image">
                             <div class="media-body">
                                 <h5 class="mt-0 mb-1"><strong>' . $book->book_name . '</strong></h5>
-                                <p>Tổng cộng có :' . $countChapter  . ' chương</p>
+                                <p>Tổng cộng có ' . $countChapter  . ' chương</p>
                             </div>
                         </li>
                     </a>

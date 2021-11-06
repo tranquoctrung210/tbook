@@ -47,7 +47,7 @@
                                                         </a>
                                                     </small>
                                                     <small>
-                                                        5 phut truoc
+                                                        {{ $book->chapters->all()[$i]->updated_at->diffForHumans() }}
                                                     </small>
                                                 </li>
                                             @endfor

@@ -129,6 +129,9 @@
             </div>
         </footer>
     </div>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0"
+        nonce="FkjL0rCX"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
     </script>
@@ -192,6 +195,90 @@
                 $(".list-book-result").hide();
             }, 100);
         });
+    </script>
+
+    {{-- theo dõi truyện --}}
+    <script type="text/javascript">
+        load_followed_book()
+
+        function load_followed_book() {
+            if (localStorage.getItem('book_followed') != null) {
+                let listBook = JSON.parse(localStorage.getItem('book_followed'))
+
+                if (listBook.length === 0) {
+                    $('#follow-list').html(``);
+                }
+
+                const book_id = $('.book_followed_id').val();
+                if (listBook.some((book) => book.id === book_id)) {
+                    $('.btn-follow-book').removeClass('btn-success').addClass('btn-danger')
+                    $('.btn-follow-book').html('<i class="fas fa-heart-broken"></i> Huỷ theo dõi');
+                }
+
+
+                let follow_list = "";
+
+
+                listBook.forEach((book) => {
+                    follow_list += `
+                    <li class="media item-book-result">
+                        <a href="${book.url}">
+                            <img class="mr-3" width="100px" height="100%"
+                                src="${book.img}" alt="Generic placeholder image">
+                        </a>
+                        <div class="media-body">
+                            <a href="${book.url}">
+                                <h5 class="mt-0 mb-1"><strong>${book.name}</strong></h5>
+                            </a>
+                        </div>
+                    </li>`
+                })
+
+                $("#follow-list").html(follow_list)
+            }
+
+        }
+
+        $('.btn-follow-book').on('click', function() {
+            $('.btn-follow-book').toggleClass('btn-success btn-danger')
+            $(this).html($(this).html() == '<i class="fas fa-heart"></i> Theo dõi' ?
+                '<i class="fas fa-heart-broken"></i> Huỷ theo dõi' : '<i class="fas fa-heart"></i> Theo dõi');
+            const book_id = $('.book_followed_id').val();
+            const book_url = $('.book_followed_url').val();
+            const book_name = $('.book_followed_name').val();
+            const book_img = $('.book_image_url').attr('src');
+            const item = {
+                id: book_id,
+                url: book_url,
+                name: book_name,
+                img: book_img,
+            }
+            if (localStorage.getItem('book_followed') == null) {
+                localStorage.setItem('book_followed', "[]")
+            }
+
+            let old_data = JSON.parse(localStorage.getItem('book_followed'))
+            let isExist = false
+            old_data.forEach((data) => {
+                if (data.id == item.id) {
+                    isExist = true;
+                }
+            })
+
+            // Kiểm tra xem đã follow chưa, nếu rồi thì xoá, chưa thì thêm
+            if (isExist) {
+                old_data.splice(old_data.indexOf(item), 1);
+                alert("Đã huỷ lưu")
+            } else {
+                old_data.push(item)
+                alert("Đã lưu")
+            }
+
+            localStorage.setItem('book_followed', JSON.stringify(old_data))
+
+            load_followed_book()
+
+        })
     </script>
 </body>
 
