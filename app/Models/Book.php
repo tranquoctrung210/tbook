@@ -13,7 +13,8 @@ class Book extends Model
     protected $primaryKey = 'id'; //Khai báo khoá chính
 
     protected $fillable = [
-        'book_name', 'slug_book', 'description', 'status', 'category_id', 'image',
+        'book_name', 'slug_book', 'description', 'status', 'image',
+        // , 'category_id'
     ]; //Những cột cần lấp đầy
 
     protected $attributes = [
@@ -21,9 +22,9 @@ class Book extends Model
         'view' => 0
     ]; 
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsToMany('App\Models\Category', 'books_categories');
     }
 
     public function chapters()

@@ -14,12 +14,12 @@ class CreateChaptersTables extends Migration
     public function up()
     {
         Schema::create('chapters', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');  
             $table->foreignId('book_id')->constrained('books');
             $table->string('chapter_title');
             $table->string('slug_chapter', 255);
             $table->string('description')->nullable();
-            $table->text('content');
+            $table->longText('content');
             $table->integer('view')->default(0);
             $table->integer('status');
             $table->timestamp('created_at')->useCurrent();

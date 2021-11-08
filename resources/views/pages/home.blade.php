@@ -55,7 +55,7 @@
                                         <a type="button" href="#" class="btn btn-sm btn-outline-secondary">Lưu</a>
                                     </div>
                                     <small class="text-muted">
-                                        <i class="fas fa-eye"></i>123233
+                                        <i class="fas fa-eye"></i> {{ $book->view }}
                                     </small>
                                 </div>
                             </div>

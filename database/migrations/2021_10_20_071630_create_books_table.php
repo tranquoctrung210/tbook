@@ -15,12 +15,12 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');  
             $table->string('book_name', 255);
             $table->text('description', 255);
             $table->string('slug_book', 255);
             $table->string('image', 255);
-            $table->foreignId('category_id')->constrained('categories');
+            // $table->foreignId('category_id')->constrained('categories');
             $table->integer('status');
             $table->string('author')->nullable();
             $table->integer('view')->default(0);

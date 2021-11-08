@@ -30,8 +30,8 @@
                             @method('post')
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên truyện</label>
-                                <input type="text" class="form-control" id="slug" onkeyup="ChangeToSlug()"
-                                    name="book_name" value="{{ old('book_name') }}">
+                                <input type="text" class="form-control" id="slug" onkeyup="ChangeToSlug()" name="book_name"
+                                    value="{{ old('book_name') }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Slug truyện</label>
@@ -45,21 +45,22 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tác giả</label>
-                                <input type="text" class="form-control" name="author"
-                                    value="{{ old('author') }}">
+                                <input type="text" class="form-control" name="author" value="{{ old('author') }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Danh mục truyện</label>
-                                <select name="category_id" class="custom-select">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" >{{ $category->category_name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="exampleInputEmail1">Danh mục truyện</label> <br>
+                                @foreach ($categories as $category)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="categories[]"
+                                            id="category-{{ $category->id }}" value="{{ $category->id }}">
+                                        <label class="form-check-label"
+                                            for="category-{{ $category->id }}">{{ $category->category_name }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Hình minh hoạ</label>
-                                <input type="file" class="form-control-file" name="image"
-                                    value="{{ old('image') }}">
+                                <input type="file" class="form-control-file" name="image" value="{{ old('image') }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Trạng Thái truyện</label>

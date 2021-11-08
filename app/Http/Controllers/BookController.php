@@ -55,7 +55,8 @@ class BookController extends Controller
                 'image.required' => 'Phải có hình ảnh',
             ]
         );
-        $data = $request;
+        $data = $request->all();
+        // dd($data['categories']);
         $image = $request->image;
         $get_name_img = $image->getClientOriginalName();
         $name_img = current(explode(".", $get_name_img));
@@ -68,11 +69,13 @@ class BookController extends Controller
         $book->book_name = $data['book_name'];
         $book->slug_book = $data['slug_book'];
         $book->description = $data['description'];
-        $book->category_id = $data['category_id'];
+        // $book->category_id = $data['category_id'];
         $data['author'] ? $book->author = $data['author'] : $book->author = 'Updating';
         $book->status = $data['status'];
         $book->image = $new_image;
         $book->save();
+
+        $book->categories()->attach($data['categories']);
         return redirect()->back()->with('status', "Đã thêm thành công!");
     }
 
@@ -112,13 +115,12 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate(
+        $request->validate(
             [
                 'book_name' => "required|unique:books,book_name,{$id},id|max:255",
                 'slug_book' => "required|unique:books,slug_book,{$id},id|max:255",
                 'description' => "required",
                 'status' => 'required',
-                'category_id' => "required",
                 'image' => "image|max:2048|mimes:jpg,png,jpeg,gif,svg|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000",
             ],
             [
@@ -130,13 +132,14 @@ class BookController extends Controller
             ]
         );
 
+        $data = $request->all();
         $book = Book::find($id);
 
         $book->book_name = $data['book_name'];
         $book->slug_book = $data['slug_book'];
         $book->description = $data['description'];
         $data['author'] ? $book->author = $data['author'] : $book->author = 'Updating';
-        $book->category_id = $data['category_id'];
+        // $book->category_id = $data['category_id'];
         $book->status = $data['status'];
 
         if ($request->image) {
@@ -156,6 +159,11 @@ class BookController extends Controller
             $book->image = $new_image;
         }
         $book->save();
+
+
+        $book->categories()->detach();
+        $book->categories()->attach($data['categories']);
+
         return redirect()->back()->with('status', "Sửa truyện thành công");
     }
 

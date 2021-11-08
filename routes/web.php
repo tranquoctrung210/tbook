@@ -59,3 +59,4 @@ Route::resource('book', BookController::class);
 Route::resource('category', CategoryController::class);
 
 Route::resource('chapter', ChapterController::class);
+

@@ -39,7 +39,11 @@
                                                 height="156" alt="{{ $book->book_name }}" /></td>
                                         <td>{{ $book->slug_book }}</td>
                                         <td>{{ $book->description }}</td>
-                                        <td>{{ $book->category->category_name }}</td>
+                                        <td>
+                                            @foreach ($book->categories as $category)
+                                                {{ $category->category_name }}
+                                            @endforeach
+                                        </td>
                                         <td>
                                             @if ($book->status == 0)
                                                 <span class="text text-success">{{ __('Kích hoạt') }}</span>

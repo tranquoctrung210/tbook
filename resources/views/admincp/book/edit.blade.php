@@ -46,16 +46,25 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tác giả</label>
-                                <input type="text" class="form-control" name="author" value="{{ old('author') ?? $book->author }}">
+                                <input type="text" class="form-control" name="author"
+                                    value="{{ old('author') ?? $book->author }}">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Danh mục truyện</label>
-                                <select name="category_id" class="custom-select">
-                                    @foreach ($categories as $category)
-                                        <option {{ $category->id == $book->category_id ? 'selected' : '' }}
-                                            value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                    @endforeach
-                                </select>
+                                @php
+                                    $books_categories = $book->categories->map(function ($cat) {
+                                        return $cat->id;
+                                    });
+                                @endphp
+                                <label for="exampleInputEmail1">Danh mục truyện</label> <br>
+                                @foreach ($categories as $category)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="categories[]"
+                                            id="category-{{ $category->id }}" value="{{ $category->id }}"
+                                            {{ in_array($category->id, $books_categories->all()) ? 'checked' : '' }}>
+                                        <label class="form-check-label"
+                                            for="category-{{ $category->id }}">{{ $category->category_name }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Hình minh hoạ</label>
