@@ -26,9 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->environment('production')) {
-            \URL::forceScheme('https');
-        }
+        if (env('APP_ENV') != 'local') {
+            URL::forceScheme('https');
+        } 
         Carbon::setLocale('vi');
         View::share('categories', Category::all()); //show list categories at the nav bar
 
