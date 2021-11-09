@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,4 +39,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function username()
+    {
+        return 'email';
+    }
+
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->only(['email', 'password']);
+
+    //     if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'role' => 1])) {
+    //         return $this->sendLoginResponse($request);
+    //     } else {
+    //         return $this->sendFailedLoginResponse($request);
+    //     }
+    // }
 }

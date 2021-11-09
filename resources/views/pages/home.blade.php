@@ -10,7 +10,7 @@
             <h3>Sách Mới</h3>
             <div class="row">
                 <style>
-                    .text-truncate {
+                    .book-title-truncate {
                         display: -webkit-box !important;
                         -webkit-line-clamp: 3;
                         -webkit-box-orient: vertical;
@@ -26,17 +26,20 @@
                                     height="235.91px" width="151.66px">
                             </a>
                             <div class="card-body" style="height: 186px">
-                                <div class="text-truncate">
+                                <div class="text-truncate book-title-truncate">
                                     {{ $book->book_name }}
                                 </div>
                                 <p class="card-text">
                                 <ul class="list-group" style="list-style:none">
                                     @if (!empty($book->chapters->all()))
-                                        @for ($i = 0; $i < count($book->chapters->all()); $i++)
+                                        @php
+                                            $bookCount = count($book->chapters->all()) < 3 ? count($books) : 3;
+                                        @endphp
+                                        @for ($i = 0; $i < $bookCount; $i++)
                                             <li class="d-flex justify-content-between">
                                                 <small>
                                                     <a
-                                                        href="{{ route('book_detail', ['slug' => $book->slug_book, 'id' => $book->id]) }}">
+                                                        href="{{ route('chapter_detail', ['slug' => $book->slug_book, 'slug_chapter' => $book->chapters->all()[$i]->slug_chapter, 'id_chapter' => $book->chapters->all()[$i]->id]) }}">
                                                         {{ $book->chapters->all()[$i]->chapter_title }}
                                                     </a>
                                                 </small>

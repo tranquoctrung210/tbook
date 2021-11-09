@@ -54,9 +54,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('book', BookController::class);
-
-Route::resource('category', CategoryController::class);
-
-Route::resource('chapter', ChapterController::class);
-
+Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
+    Route::resource('book', BookController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('chapter', ChapterController::class);
+});
